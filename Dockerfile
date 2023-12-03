@@ -4,7 +4,7 @@ COPY . .
 RUN mvn clean install -DskipTests
 
 FROM alpine:3.13.6
-ARG SERVER=192.168.1.72
+ARG SERVER=192.168.1.50
 ARG USER=yascode
 ARG PASS=YassMel97
 
