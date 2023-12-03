@@ -1,0 +1,11 @@
+[Unit]
+Description=DevOps Spring Boot Application
+After=network.target
+
+[Service]
+User=yascode
+ExecStart=/opt/devops/start_app-1.sh
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

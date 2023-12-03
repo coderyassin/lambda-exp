@@ -1,0 +1,26 @@
+# Utiliser l'image Maven officielle avec OpenJDK 17
+FROM maven:3.8.4-openjdk-17
+
+# Installer sshpass (si apt-get est disponible dans l'image)
+# RUN apk add --update bash openssh sshpass
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /app
+
+# Copier tout le projet dans le répertoire de travail
+COPY . /app
+
+# Packager l'application Spring Boot
+RUN mvn clean install
+
+# Télécharger et installer sshpass
+RUN wget https://github.com/leventyalcin/sshpass/releases/download/2.3/sshpass -O /usr/local/bin/sshpass && \
+    chmod +x /usr/local/bin/sshpass
+
+# Renommer le fichier JAR généré
+RUN mv target/*.jar target/my-app.jar
+
+RUN chmod +x /app/deploy.sh
+
+# Commande par défaut pour exécuter le script de déploiement
+CMD ["/bin/bash", "/app/deploy.sh"]
